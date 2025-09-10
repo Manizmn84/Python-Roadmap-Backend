@@ -1,0 +1,6 @@
+this is the random text
+what is the file in the python?
+
+I Love python
+this is test for write in the file
+# this is test for comment
