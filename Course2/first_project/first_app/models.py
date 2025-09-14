@@ -1,7 +1,11 @@
 from django.db import models
 
-# Create your models here.
 class Person(models.Model) :
-    name = models.CharField(max_length=70)
-    age = models.IntegerField()
-    country = models.CharField(max_length=50)
+    GENDER_CHOICE = (
+        ("m" , "male"),
+        ("f" , "female"),
+    )
+    name = models.CharField(max_length=20 , blank=False)
+    age = models.IntegerField(default=18)
+    country = models.CharField(max_length=10 , null=True)
+    gender = models.CharField(choices=GENDER_CHOICE , default="m")
