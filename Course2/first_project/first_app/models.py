@@ -26,4 +26,4 @@ class Library(models.Model) :
 
 class Personal(models.Model) :
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    library = models.ForeignKey(Library , on_delete=models.CASCADE)
+    library = models.ForeignKey(Library , on_delete=models.CASCADE,related_name="personals")
