@@ -21,5 +21,6 @@ from first_app.views import signup_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("first_app/",include("first_app.urls")),
+    path("first_app/" , include("first_app.urls")),
+    path("__debug__/" , include("debug_toolbar.urls")),
 ]
