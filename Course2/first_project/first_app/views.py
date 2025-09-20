@@ -6,3 +6,6 @@ def signup_view(request) -> HttpResponse :
 
 def say_hello(request) -> HttpResponse :
     return HttpResponse("welcome to the django app!")
+
+def person_info(request , first_name , last_name , age) -> HttpResponse :
+    return HttpResponse(f"{first_name:}\n{last_name:}\n{age:}")
