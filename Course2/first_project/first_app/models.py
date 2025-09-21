@@ -43,6 +43,8 @@ class Mobile(models.Model):
     color = models.CharField(max_length=16, default='Black')
     display_size = models.SmallIntegerField(default=4)
     is_available = models.BooleanField(default=True)
+    made_in = models.CharField(max_length=20, default='China')
 
     def __str__(self):
         return '{} {}'.format(self.brand.name, self.model)
+
