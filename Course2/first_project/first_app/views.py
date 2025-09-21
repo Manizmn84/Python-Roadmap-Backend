@@ -5,6 +5,9 @@ def signup_view(request) -> HttpResponse :
     return HttpResponse("Signup Completed!")
 
 def say_hello(request) -> HttpResponse :
+    print(request.GET)
+    print("name: " ,request.GET["name"])
+    print(request.GET.get("last_name","zamani"))
     return HttpResponse("welcome to the django app!")
 
 def person_info(request , first_name , last_name , age) -> HttpResponse :
