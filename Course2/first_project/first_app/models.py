@@ -48,3 +48,8 @@ class Mobile(models.Model):
     def __str__(self):
         return '{} {}'.format(self.brand.name, self.model)
 
+class Task(models.Model):
+    name = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.name
