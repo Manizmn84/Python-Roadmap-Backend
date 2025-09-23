@@ -1,6 +1,6 @@
 from django.shortcuts import render , HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import Task
+from .models import Task , Book
 
 # Create your views here.
 def signup_view(request) -> HttpResponse :
@@ -32,4 +32,8 @@ def delete_Task(request , task_id) -> HttpResponse :
             task.delete()
             return HttpResponse(f"Task Done: '{task.name}'")
         else:
-            return HttpResponse(f"There isn't any task with id '{task_id}'")            
+            return HttpResponse(f"There isn't any task with id '{task_id}'")  
+
+def booklist(request) -> render :
+    books = Book.objects.all()    
+    return render(request , "booklist.html" , {"books" : books})      
