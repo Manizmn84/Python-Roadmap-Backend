@@ -1,6 +1,7 @@
 from django.shortcuts import render , HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import Task , Book
+from .models import Task , Book ,Author
+from .forms import AuthorForm
 
 # Create your views here.
 def signup_view(request) -> HttpResponse :
@@ -37,3 +38,39 @@ def delete_Task(request , task_id) -> HttpResponse :
 def booklist(request) -> render :
     books = Book.objects.all()    
     return render(request , "booklist.html" , {"books" : books})      
+
+@csrf_exempt
+def author_detail(request) -> render :
+    if request.method == "GET" :
+        authors = Author.objects.all()
+        return render(request , "author_detail.html",{ 
+            "authors" :authors
+            })
+    if request.method == "POST" :
+        form = AuthorForm(request.POST)
+        if not form.is_valid() :
+            return HttpResponse("data is invalid")
+        Author.objects.create(name=form.cleaned_data["name"])
+        authors = Author.objects.all()
+        return render(request , "author_detail.html",{ 
+            "authors" :authors
+            }) 
+    
+@csrf_exempt
+def new_author(request) :
+    if request.method == "GET" :
+        author_form = AuthorForm()
+        return render(request , "new_author.html" , {
+            "author_form" :author_form
+        })
+    
+    if request.method == "POST" :
+        form = AuthorForm(request.POST)
+        if not form.is_valid() :
+            return HttpResponse("data is invalid")
+        # Author.objects.create(name=form.cleaned_data["name"])
+        form.save()
+        authors = Author.objects.all()
+        return render(request , "author_detail.html",{ 
+            "authors" :authors
+            }) 
