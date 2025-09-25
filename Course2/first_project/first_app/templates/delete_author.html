@@ -1,0 +1,5 @@
+<form method="post"> {% csrf_token %}
+    <p>are you share to remove author with id:  {{object.pk}} and name: {{object.name}}</p>
+    {{form.as_p}}
+    <input type="submit" value="confirm"/>
+</form>

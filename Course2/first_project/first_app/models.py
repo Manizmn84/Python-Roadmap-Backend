@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 class Person(models.Model) :
     GENDER_CHOICE = (
@@ -12,6 +13,9 @@ class Person(models.Model) :
 
 class Author(models.Model) :
     name = models.CharField(max_length=100)
+
+    def get_absolute_url(self) :
+        return reverse("author-list")
 
 class Book(models.Model) :
     title = models.CharField(max_length=100)
@@ -53,3 +57,13 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Musician(models.Model):
+    name = models.CharField(max_length=50)
+    instrument = models.CharField(max_length=100)
+
+
+class Album(models.Model):
+    name = models.CharField(max_length=100)
+    artist = models.ForeignKey(Musician, on_delete=models.CASCADE)
+    num_stars = models.IntegerField()

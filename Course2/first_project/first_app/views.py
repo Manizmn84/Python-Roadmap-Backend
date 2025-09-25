@@ -1,7 +1,10 @@
 from django.shortcuts import render , HttpResponse
+from django.urls import reverse_lazy
+from django.views import View
 from django.views.decorators.csrf import csrf_exempt
-from .models import Task , Book ,Author
+from .models import Task , Book ,Author , Musician
 from .forms import AuthorForm
+from django.views.generic import ListView , DetailView , CreateView , UpdateView , DeleteView
 
 # Create your views here.
 def signup_view(request) -> HttpResponse :
@@ -74,3 +77,33 @@ def new_author(request) :
         return render(request , "author_detail.html",{ 
             "authors" :authors
             }) 
+    
+class Musician_list(View):
+    def get(self , request) :
+        musicians = Musician.objects.values_list("name" , flat=True).order_by("name")
+        return HttpResponse(musicians)
+
+class AuthorListView(ListView) :
+    model = Author
+    template_name = "author_list.html"
+    # queryset = Author.objects.filter(name__startswith="m")
+
+class AuthorDetailView(DetailView) :
+    model = Author
+    template_name = "author_detail2.html"
+
+class AuthorCreatView(CreateView) :
+    model = Author
+    template_name = "create_author.html"
+    fields = ["name"]
+
+class AuthorUpdateView(UpdateView) :
+    model = Author
+    fields = ["name"]
+    template_name = "author_update.html"
+    success_url = reverse_lazy("author-list")
+
+class AuthorDeleteView(DeleteView) :
+    model = Author
+    template_name = "delete_author.html"
+    success_url = reverse_lazy("author-list")
